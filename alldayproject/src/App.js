@@ -6,8 +6,8 @@ function App() {
   //state variable set to location
   return (
     <div className="App">
-      <Nasa />
-      <Weather />
+      {/* <Nasa />
+      <Weather /> */}
       <Zomato />
     </div>
   );
