@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Zomato from './components/Zomato';
 
 function App() {
   //state variable set to location
