@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import Weather from './components/Weather';
 
 function App() {
   const [latitude, setLatitude] = useState('');
@@ -22,9 +23,9 @@ function App() {
 
   return (
     <div className="App">
-      <Nasa longitude={longitude} latitude={latitude} />
+      {/* <Nasa longitude={longitude} latitude={latitude} /> */}
       <Weather longitude={longitude} latitude={latitude} />
-      <Zomato longitude={longitude} latitude={latitude} />
+      {/* <Zomato longitude={longitude} latitude={latitude} /> */}
     </div>
   );
 }
