@@ -1,34 +1,48 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import {Card, CardBody, CardTitle, CardText, Container} from 'reactstrap';
+import ZomatoResults from './ZomatoResults';
 
 let key ="37c3095143d59b0edec8ec8f95d123fe";
 
 const Zomato = (props) => {
-    let lat = props.latitude;
-    let lon = props.longitude;
+    const [restaurants, setRestaurants] = useState();
+    console.log(props.latitude);
+    console.log(props.longitude);
 
-    let latitude = 39.791000;
-    let longtitude = -86.148003;
-
-
+    let latitude = 42.963795;
+    let longitude = -85.670006;
+   
     const getRestaurants = () => {
         fetch(`https://developers.zomato.com/api/v2.1/geocode?lat=${props.latitude}&lon=${props.longitude}`, {
             headers: {
               Accept: "application/json",
-              "User-Key": "37c3095143d59b0edec8ec8f95d123fe"
+              "User-Key": "a9ffffa524fd243625973b4af6e2d736"
             }
           })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => setRestaurants(data))
             .catch(err => console.log(err));
     }
 
+    // useEffect(() => {
+        if(props.latitude && props.longitude && !restaurants){
+        getRestaurants();
+        console.log(restaurants)
+        }
+    // }, [])
+
+
     return (
         <div>
-            {getRestaurants()}
-            <h1>Hello</h1>
+            <Container className="zomato">
+                {restaurants ? <ZomatoResults results={restaurants}/> : null}
+            </Container>
         </div>
     )
 }
 
     export default Zomato;
+
+
+    // let latitude = 39.791000;
+    // let longitude = -86.148003;

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {Container} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import Weather from './components/Weather';
 import Zomato from './components/Zomato';
 
 
 function App() {
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   const getLocation = () => {
     if ("geolocation" in navigator) {
@@ -33,12 +35,21 @@ function App() {
     <div>Getting your location...</div>
   )
 
+  useEffect(()=> {
+    getLocation();
+  }, [])
+
   return (
     <div className="App">
+
+      <Container>
+        <div>
+          <Weather longitude={longitude} latitude={latitude} />
+          <Zomato latitude={latitude} longitude={longitude}/>
+        </div>
+      </Container>
       {/* <Nasa longitude={longitude} latitude={latitude} /> */}
-      <Weather longitude={longitude} latitude={latitude} />
       {getLocation()}
-      <Zomato latitude={latitude} longitude={longitude} />
     </div>
   );
 }
@@ -46,3 +57,4 @@ export default App;
 
 // <Nasa longitude={longitude} latitude={latitude} />
 // <Weather longitude={longitude} latitude={latitude} />
+// {getLocation()}
