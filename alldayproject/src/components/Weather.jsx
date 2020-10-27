@@ -3,11 +3,31 @@ import { Button } from 'reactstrap';
 
 const Weather = (props) => {
 
-const [isLoading, setIsLoading] = useState(true);
-    //destructuring 
-const {latitude, longitude} = props
+    //variables to hold our weather, info get from our fetch
+    const [temp, setTemp] = useState('')
+    const [feelslike, setFeelsLike] = useState('')
+    const [weather, setWeather] = useState('')
 
-  
+    // determine if we are loading the weather
+    const [isLoading, setIsLoading] = useState(true);
+
+    // determine if we show the weather as f or c
+    const [showFahrenheit, setShowFahrenheit] = useState(true)
+
+    /**
+     * 
+     */
+    const displayTemp = (val) => {
+        if(!showFahrenheit) {
+            //round down to 2 decimals places
+            return Math.floor(((val - 32) * 5/9) * 100) / 100
+        }
+        //show fahrenheit
+        return Math.floor(val)
+    }
+
+    //destructuring 
+    const {latitude, longitude} = props
 
     //set our API key
     const apiKey = process.env.REACT_APP_WEATHER_API_KEY
@@ -15,27 +35,25 @@ const {latitude, longitude} = props
     //set our url
     const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
 
-const getWeather = () => {
-    console.log(url)
-    fetch(url)
-    // .then(blob => blob.json())
-    .then(function(response) {
-        return response.json()
-    })
-        .then(response => {
+    const getWeather = () => {
+        console.log(url)
+        fetch(url)
+            .then(function(response) {
+                return response.json()
+            })
+            .then(response => {
 
-            console.log({response})
-            
-            const {main, weather} = response
-            //Fahreheit
-            // main.feels_like //44
-            // main.temp   // 38
+                console.log({response})
+                
+                const {main, weather} = response
+                //Fahrenheit
+                setTemp(main.temp);//44 Fahrenheit
+                setFeelsLike(main.feels_like)  // 38 Fahrenheit
+                setWeather(weather[0].description) // light rain
 
-            // weather[0].description // light rain
-
-            // once we have our data, turn off our loading message
-            setIsLoading(false)
-        })
+                // once we have our data, turn off our loading message
+                setIsLoading(false)
+            })
 
         // show loading text if waiting for weather to load
         if(isLoading) return (
@@ -50,7 +68,10 @@ const getWeather = () => {
 
     return (
         <div>
-            <Button type="submit"></Button>
+            Temp is: {displayTemp(temp)}&deg;<br />
+            Feels like: {displayTemp(feelslike)}&deg;<br />
+            Weather: {weather}<br />
+            <Button type="submit" onClick={() => setShowFahrenheit(!showFahrenheit)}>Temp Toggle</Button>
         </div>
     )   
 }
