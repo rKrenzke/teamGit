@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import Weather from './components/Weather';
 import Zomato from './components/Zomato';
 
 
@@ -20,16 +21,27 @@ function App() {
     } else {
       console.log('geolocation is not enabled on this browser')
     };
-  };
+  }
+
+  // ensure 'getLocation' only runs once
+  useEffect(() => {
+    getLocation()
+  }, [])
+
+  //if lat or long is not set, return a loading message
+  if (!latitude || !longitude) return (
+    <div>Getting your location...</div>
+  )
 
   return (
     <div className="App">
+      {/* <Nasa longitude={longitude} latitude={latitude} /> */}
+      <Weather longitude={longitude} latitude={latitude} />
       {getLocation()}
       <Zomato latitude={latitude} longitude={longitude} />
     </div>
   );
 }
-
 export default App;
 
 // <Nasa longitude={longitude} latitude={latitude} />
