@@ -14,9 +14,7 @@ const Weather = (props) => {
     // determine if we show the weather as f or c
     const [showFahrenheit, setShowFahrenheit] = useState(true)
 
-    /**
-     * 
-     */
+
     const displayTemp = (val) => {
         if(!showFahrenheit) {
             //round down to 2 decimals places
@@ -75,7 +73,5 @@ const Weather = (props) => {
         </div>
     )   
 }
-
-
 
 export default Weather;
