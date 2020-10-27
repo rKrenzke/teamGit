@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Table} from 'reactstrap';
 
 const ZomatoResults = (props) => {
     console.log(props)
 
     const restaurantMapper = () => {
-        return props.results.nearby_restaurants.map((restaurant) => {
-            console.log(restaurant)
+        if(props.results){
+        return props.results.nearby_restaurants.map((restaurant, index) => {
             return(
-                <tr>
+                <tr key={index}>
                     <td>{restaurant.restaurant.name}</td>
                     <td>{restaurant.restaurant.cuisines}</td>
                     <td>${restaurant.restaurant.average_cost_for_two}</td>
@@ -18,6 +18,8 @@ const ZomatoResults = (props) => {
         })
     }
     
+    }
+
 
     return(
         <div>
@@ -34,7 +36,7 @@ const ZomatoResults = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {restaurantMapper()}
+                    {restaurantMapper()}
                 </tbody>
             </Table>
         </div>

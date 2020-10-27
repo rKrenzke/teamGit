@@ -6,8 +6,8 @@ import Zomato from './components/Zomato';
 
 
 function App() {
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   const getLocation = () => {
     if ("geolocation" in navigator) {
@@ -24,11 +24,13 @@ function App() {
     };
   };
 
+  useEffect(()=> {
+    getLocation();
+  }, [])
 
   return (
     <div className="App">
       <Container>
-        {getLocation()}
         <div>
           <Zomato latitude={latitude} longitude={longitude}/>
         </div>
