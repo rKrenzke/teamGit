@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import {Container} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import Zomato from './components/Zomato';
 
@@ -22,10 +24,16 @@ function App() {
     };
   };
 
+
   return (
     <div className="App">
-      {getLocation()}
-      <Zomato latitude={latitude} longitude={longitude} />
+      <Container>
+        {getLocation()}
+        <div>
+          <Zomato latitude={latitude} longitude={longitude}/>
+        </div>
+      </Container>
+      
     </div>
   );
 }
@@ -34,3 +42,4 @@ export default App;
 
 // <Nasa longitude={longitude} latitude={latitude} />
 // <Weather longitude={longitude} latitude={latitude} />
+// {getLocation()}
