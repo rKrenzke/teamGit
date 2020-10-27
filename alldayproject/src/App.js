@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Weather from './components/Weather';
+import Zomato from './components/Zomato';
+
 
 function App() {
   const [latitude, setLatitude] = useState('');
@@ -35,8 +37,12 @@ function App() {
     <div className="App">
       {/* <Nasa longitude={longitude} latitude={latitude} /> */}
       <Weather longitude={longitude} latitude={latitude} />
-      {/* <Zomato longitude={longitude} latitude={latitude} /> */}
+      {getLocation()}
+      <Zomato latitude={latitude} longitude={longitude} />
     </div>
   );
 }
 export default App;
+
+// <Nasa longitude={longitude} latitude={latitude} />
+// <Weather longitude={longitude} latitude={latitude} />
